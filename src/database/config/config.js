@@ -6,9 +6,9 @@ module.exports = {
   "development": {
     "username": globalConstants.DB_USERNAME,
     "password": globalConstants.DB_PASSWORD,
+    "host": globalConstants.DB_HOST,
     "database": globalConstants.DB_NAME,
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
   
 
