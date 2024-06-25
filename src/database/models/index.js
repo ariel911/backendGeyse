@@ -1,18 +1,17 @@
 'use strict';
-
+const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const { rejects } = require('assert');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
 
-const globalConstants = require('../../const/globalConstants')
+/* const config = require(__dirname + '/../config/config.js')[env];
+
+const globalConstants = require('../../const/globalConstants') */
+
+require('dotenv').config();
+
+const { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 const db = {};
-
-let sequelize;
 
 /*   sequelize = new Sequelize(globalConstants.DB_NAME, globalConstants.DB_USERNAME,globalConstants.DB_PASSWORD,{
     host:('RENDER' in process.env)? '0.0.0.0':'localhost',
@@ -24,8 +23,13 @@ let sequelize;
       }
     } */
 
-sequelize = new Sequelize(config.database, config.username, config.password, config);
-
+const sequelize = new Sequelize(
+  `postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  }
+);
 
 
 
