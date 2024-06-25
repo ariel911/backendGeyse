@@ -5,6 +5,9 @@ const routerConfig = require('./routes/index.routes.js') // importar el archivo 
 const globalConstants = require('./const/globalConstants') // importar el archivo de constantes globales
 /* const decodeJWT = require("./middlewares/decodeJWT.js") */
 var cors = require('cors')
+
+const host=('RENDER' in process.env)? '0.0.0.0':'localhost';
+const port =process.env.PORT || 3500;
 const configuracionApi = (app) => { // configurar la api
   app.use(express.json()) // para que la api pueda recibir json
   app.use(express.urlencoded({ extended: true })) // para que la api pueda recibir formularios
@@ -24,7 +27,7 @@ const init = () => {
   const app = express() // crear una instancia de express
   configuracionApi(app) // configurar la api
   configuracionRouter(app) // configurar las rutas
-  app.listen(globalConstants.PORT,'0.0.0.0') // escuchar en el puerto
+  app.listen(port,host) // escuchar en el puerto
   console.log('La aplicacion se está ejecutando en el puerto:' + globalConstants.PORT) // mostrar en consola que se está ejecutando la aplicación en el puerto correspondiente
 };
 
