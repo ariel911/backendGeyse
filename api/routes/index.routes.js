@@ -4,18 +4,18 @@ const { Router } = require("express") // importar express
 //const decodeJWT = require("./middlewares/decodeJWT.js")
 const authRoutes = require("./auth.routes")
 
-const usuarioRoutes = require("../routes/usuario.routes") // importar el archivo de rutas de usuarios
-const rolRoutes = require("../routes/rol.routes") 
+const usuarioRoutes = require("./usuario.routes") // importar el archivo de rutas de usuarios
+const rolRoutes = require("./rol.routes") 
 
-const clienteRoutes = require("../routes/cliente.routes") // importar el archivo de cliente
-const menuRoutes = require("../routes/menu.routes") // importar el archivo de menu
-const estadoRoutes = require("../routes/estado.routes") // importar el archivo de estado
-const trabajoRoutes = require("../routes/trabajo.routes") // importar el archivo de estado
-const tipoRoutes = require("../routes/tipo.routes") 
-const sucursalRoutes = require("../routes/sucursal.routes") 
-const extintorRoutes = require("../routes/extintor.routes") 
-const inspeccionRoutes = require("../routes/inspeccion.routes") 
-const servicioRoutes = require("../routes/servicio.routes") 
+const clienteRoutes = require("./cliente.routes") // importar el archivo de cliente
+const menuRoutes = require("./menu.routes") // importar el archivo de menu
+const estadoRoutes = require("./estado.routes") // importar el archivo de estado
+const trabajoRoutes = require("./trabajo.routes") // importar el archivo de estado
+const tipoRoutes = require("./tipo.routes") 
+const sucursalRoutes = require("./sucursal.routes") 
+const extintorRoutes = require("./extintor.routes") 
+const inspeccionRoutes = require("./inspeccion.routes") 
+const servicioRoutes = require("./servicio.routes") 
 
 
 
