@@ -7,14 +7,14 @@ const process = require('process');
 const { rejects } = require('assert');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-/* const config = require(__dirname + '/../config/config.js')[env]; */
+const config = require(__dirname + '/../config/config.js')[env];
 
 const globalConstants = require('../../const/globalConstants')
 const db = {};
 
 let sequelize;
 
-  sequelize = new Sequelize(globalConstants.DB_NAME, globalConstants.DB_USERNAME,globalConstants.DB_PASSWORD,{
+/*   sequelize = new Sequelize(globalConstants.DB_NAME, globalConstants.DB_USERNAME,globalConstants.DB_PASSWORD,{
     host:('RENDER' in process.env)? '0.0.0.0':'localhost',
     dialect:'postgres',
 /*     dialectOptions:{
@@ -23,7 +23,12 @@ let sequelize;
         rejectUnauthorized:false
       }
     } */
-  });
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
 
 
 fs

@@ -7,7 +7,7 @@ const globalConstants = require('./const/globalConstants') // importar el archiv
 var cors = require('cors')
 
 const host=('RENDER' in process.env)? '0.0.0.0':'localhost';
-const port =process.env.PORT || 3500;
+const port = process.env.PORT || 4000;
 const configuracionApi = (app) => { // configurar la api
   app.use(express.json()) // para que la api pueda recibir json
   app.use(express.urlencoded({ extended: true })) // para que la api pueda recibir formularios
