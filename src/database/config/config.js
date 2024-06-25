@@ -8,6 +8,7 @@ module.exports = {
     "password": globalConstants.DB_PASSWORD,
     "host": globalConstants.DB_HOST,
     "database": globalConstants.DB_NAME,
+
     "dialect": "postgres"
   }
   

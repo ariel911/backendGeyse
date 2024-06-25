@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
+const { rejects } = require('assert');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.js')[env];
@@ -11,7 +12,16 @@ const db = {};
 
 let sequelize;
 
-sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.database, config.username, config.password,{
+    host:('RENDER' in process.env)? '0.0.0.0':'localhost',
+    dialect:'postgres',
+/*     dialectOptions:{
+      ssl:{
+        requiere:true,
+        rejectUnauthorized:false
+      }
+    } */
+  });
 
 
 fs
