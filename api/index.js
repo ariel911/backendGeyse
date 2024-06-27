@@ -27,7 +27,7 @@ const init = () => {
   const app = express() // crear una instancia de express
   configuracionApi(app) // configurar la api
   configuracionRouter(app) // configurar las rutas
-  app.listen(port,host) // escuchar en el puerto
+  app.listen(port) // escuchar en el puerto
   console.log('La aplicacion se está ejecutando en el puerto:' + globalConstants.PORT) // mostrar en consola que se está ejecutando la aplicación en el puerto correspondiente
 };
 
