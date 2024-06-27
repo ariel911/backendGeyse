@@ -4,8 +4,10 @@ const fs = require('fs');
 const path = require('path');
 const basename = path.basename(__filename);
 
-/* const config = require(__dirname + '/../config/config.js')[env];
-
+//agregado
+/* const process = require('process');
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.js')[env];
 const globalConstants = require('../../const/globalConstants') */
 
 require('dotenv').config();
@@ -13,15 +15,10 @@ require('dotenv').config();
 const { DB_USERNAME, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 const db = {};
 
-/*   sequelize = new Sequelize(globalConstants.DB_NAME, globalConstants.DB_USERNAME,globalConstants.DB_PASSWORD,{
-    host:('RENDER' in process.env)? '0.0.0.0':'localhost',
-    dialect:'postgres',
-/*     dialectOptions:{
-      ssl:{
-        requiere:true,
-        rejectUnauthorized:false
-      }
-    } */
+//agregado
+/* let sequelize
+sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD,config)
+ */
 
 const sequelize = new Sequelize(
   `postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,
