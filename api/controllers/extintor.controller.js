@@ -159,4 +159,31 @@ module.exports = {
       });
     }
   },
+  buscarPorId: async (req, res) => {
+    try {
+      const extintor = await models.extintor.findByPk(req.params.id);
+  
+      if (extintor) {
+        res.json({
+          success: true,
+          data: extintor
+        });
+      } else {
+        res.json({
+          success: false,
+          data: {
+            message: `No se encontró un extintor con el id ${req.params.id}`
+          }
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.json({
+        success: false,
+        data: {
+          message: 'Ha ocurrido un error al buscar el extintor'
+        }
+      });
+    }
+  },
 }

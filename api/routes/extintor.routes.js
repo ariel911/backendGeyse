@@ -8,6 +8,6 @@ router.get('/', extintorController.listar)
 router.post('/', extintorController.crear)
 router.put('/:id', extintorController.darBaja)
 router.put('/baja/:id', extintorController.darBaja)
-
+router.get('/:id', extintorController.buscarPorId);
 
 module.exports = router;
