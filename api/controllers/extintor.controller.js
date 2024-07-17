@@ -158,11 +158,11 @@ module.exports = {
           },
           {
             model: models.sucursal,
-            attributes: ['nombre_sucursal', 'nombre_encargado', 'ubicacion', 'codigo', 'fecha_registro', 'estado'],
+            attributes: ['id','nombre_sucursal', 'nombre_encargado', 'ubicacion', 'codigo', 'fecha_registro', 'estado'],
             include: [
               {
                 model: models.cliente,
-                attributes: ['nombre_cliente', 'nombre_encargado', 'ubicacion', 'fecha_registro', 'estado', 'codigo'],
+                attributes: ['id','nombre_cliente', 'nombre_encargado', 'ubicacion', 'fecha_registro', 'estado', 'codigo'],
               }
             ]
           },
