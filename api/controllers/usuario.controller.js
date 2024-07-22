@@ -146,6 +146,47 @@ module.exports = {
     }
   },
   
+  cambiarClave: async (req, res) => {
+    const userId = req.params.id;
+    const { clave } = req.body;
 
+    try {
+      // Busca el usuario que se va a actualizar
+      const usuario = await models.usuario.findByPk(userId);
+
+      if (!usuario) {
+        return res.json({
+          success: false,
+          data: {
+            message: "Usuario no encontrado"
+          }
+        });
+      }
+
+      // Encripta la nueva contraseña
+      const passwordHash = await encrypt(clave);
+
+      // Actualiza la contraseña del usuario
+      usuario.clave = passwordHash;
+
+      // Guarda los cambios en la base de datos
+      await usuario.save();
+
+      res.json({
+        success: true,
+        data: {
+          message: `La contraseña del usuario con id ${usuario.id} ha sido actualizada exitosamente`
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        success: false,
+        data: {
+          message: 'Ha ocurrido un error al actualizar la contraseña del usuario'
+        }
+      });
+    }
+  }
 
 }

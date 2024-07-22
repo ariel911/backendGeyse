@@ -8,6 +8,7 @@ router.get('/', usuarioController.listar)
 router.post('/', usuarioController.crear)
 router.put('/:id', usuarioController.update)
 router.put('/baja/:id', usuarioController.darBaja)
+router.put('/cambiar-contrasena/:id', usuarioController.cambiarClave)
 
 
 module.exports = router;
