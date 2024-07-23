@@ -75,7 +75,7 @@ module.exports = {
   update: async (req, res) => {
     const userId = req.params.id; // Suponiendo que el ID del usuario a actualizar se pasa como parte de la URL.
     const { nombre_usuario,apellido,fecha_registro, correo, rolId } = req.body;
-    const passwordHash = await encrypt(req.body.clave)
+    
 
     try {
       // Busca el usuario que se va a actualizar
@@ -95,7 +95,7 @@ module.exports = {
       usuario.correo = correo;
       usuario.apellido = apellido;
       usuario.fecha_registro = fecha_registro
-      usuario.clave = passwordHash;
+      
       usuario.rolId=rolId;
 
 
