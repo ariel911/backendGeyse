@@ -12,7 +12,7 @@ module.exports = {
         attributes: ['id', 'nombre_usuario','apellido','correo', 'clave', 'estado','fecha_registro'],
         include: [{
           model: models.rol,
-          attributes: ['id', 'nombre_rol'],
+          attributes: ['id', 'nombre_rol','estado'],
           include:[
             {
               model:models.menu_rol,
