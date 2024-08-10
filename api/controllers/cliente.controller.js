@@ -7,7 +7,7 @@ module.exports = {
     try {
       const clientes = await models.cliente.findAll({
         model: models.cliente,
-        attributes: ['id', 'nombre_cliente', 'ubicacion', 'usuario_acceso', 'clave', 'codigo', "estado", 'nombre_encargado','fecha_registro'],
+        attributes: ['id', 'nombre_cliente', 'usuario_acceso', 'clave', 'codigo', "estado", 'nombre_encargado','fecha_registro'],
       });
       res.json({
         success: true,
@@ -28,10 +28,10 @@ module.exports = {
 
   crear: async (req, res) => {
     try {
-      const { nombre_cliente, ubicacion, usuario_acceso,fecha_registro, clave, codigo, estado, nombre_encargado } = req.body;
+      const { nombre_cliente, usuario_acceso,fecha_registro, clave, codigo, estado, nombre_encargado } = req.body;
 
       const cliente = await models.cliente.create({
-        nombre_cliente, ubicacion, usuario_acceso, clave, codigo, estado,fecha_registro,nombre_encargado
+        nombre_cliente, usuario_acceso, clave, codigo, estado,fecha_registro,nombre_encargado
       });
 
       res.status(201).json({

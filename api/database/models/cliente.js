@@ -17,10 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    ubicacion: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+
     usuario_acceso: {
       type: DataTypes.STRING,
 

@@ -16,7 +16,7 @@ module.exports = {
             include: [
               {
                 model: models.cliente,
-                attributes: ['id','nombre_cliente', 'nombre_encargado', 'ubicacion','usuario_acceso','clave', 'fecha_registro', 'estado', 'codigo'],
+                attributes: ['id','nombre_cliente', 'nombre_encargado','usuario_acceso','clave', 'fecha_registro', 'estado', 'codigo'],
               }
             ]
           },
@@ -154,7 +154,7 @@ module.exports = {
         include: [
           {
             model: models.tipo,
-            attributes: ['nombre_tipo', 'estado'],
+            attributes: ['id','nombre_tipo', 'estado'],
           },
           {
             model: models.sucursal,
@@ -162,13 +162,13 @@ module.exports = {
             include: [
               {
                 model: models.cliente,
-                attributes: ['id','nombre_cliente', 'nombre_encargado', 'ubicacion', 'fecha_registro', 'estado', 'codigo'],
+                attributes: ['id','nombre_cliente', 'nombre_encargado', 'fecha_registro', 'estado', 'codigo'],
               }
             ]
           },
           {
             model: models.usuario,
-            attributes: ['nombre_usuario', 'apellido', 'correo', 'fecha_registro', 'estado'],
+            attributes: ['id','nombre_usuario', 'apellido', 'correo', 'fecha_registro', 'estado'],
           }
         ]
       });

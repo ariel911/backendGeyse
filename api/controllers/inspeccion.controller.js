@@ -29,7 +29,7 @@ module.exports = {
               attributes: ['id','nombre_sucursal','nombre_encargado','ubicacion','codigo','fecha_registro','estado'],
               include:[{
                 model:models.cliente,
-                attributes: ['id','nombre_cliente','nombre_encargado','ubicacion','codigo','fecha_registro','estado'],
+                attributes: ['id','nombre_cliente','nombre_encargado','codigo','fecha_registro','estado'],
               }]
             }]
           }
