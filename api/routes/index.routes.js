@@ -17,13 +17,13 @@ const extintorRoutes = require("./extintor.routes")
 const inspeccionRoutes = require("./inspeccion.routes") 
 const servicioRoutes = require("./servicio.routes") 
 
-
+const decodeJWT =require("../middlewares/decodeJWT")
 
 
 const rutas_init = () => { // aca se ponen todas las rutas que existen
   const router = Router() // crear una instancia de express.Router()
  
-  router.use("/usuarios", usuarioRoutes) // para acceder a las rutas de usuarios de la api siempre deberá empezar con /usuarios
+  router.use("/usuarios",decodeJWT, usuarioRoutes) // para acceder a las rutas de usuarios de la api siempre deberá empezar con /usuarios
   router.use("/cliente", clienteRoutes) 
   router.use("/menu", menuRoutes) 
   router.use("/estado", estadoRoutes) 
