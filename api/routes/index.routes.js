@@ -25,15 +25,15 @@ const rutas_init = () => { // aca se ponen todas las rutas que existen
  
   router.use("/usuarios",decodeJWT, usuarioRoutes) // para acceder a las rutas de usuarios de la api siempre deberá empezar con /usuarios
   router.use("/cliente", clienteRoutes) 
-  router.use("/menu", menuRoutes) 
-  router.use("/estado", estadoRoutes) 
-  router.use("/trabajo", trabajoRoutes) 
-  router.use("/tipo", tipoRoutes) 
-  router.use("/rol", rolRoutes) 
-  router.use("/sucursal", sucursalRoutes) 
-  router.use("/extintor", extintorRoutes) 
-  router.use("/inspeccion", inspeccionRoutes) 
-  router.use("/servicio", servicioRoutes) 
+  router.use("/menu", decodeJWT,menuRoutes) 
+  router.use("/estado",decodeJWT, estadoRoutes) 
+  router.use("/trabajo",decodeJWT, trabajoRoutes) 
+  router.use("/tipo",decodeJWT,tipoRoutes) 
+  router.use("/rol",decodeJWT, rolRoutes) 
+  router.use("/sucursal",decodeJWT, sucursalRoutes) 
+  router.use("/extintor",decodeJWT, extintorRoutes) 
+  router.use("/inspeccion",decodeJWT, inspeccionRoutes) 
+  router.use("/servicio",decodeJWT, servicioRoutes) 
 
 
 
