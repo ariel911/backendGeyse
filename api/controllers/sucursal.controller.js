@@ -11,7 +11,7 @@ module.exports = {
         include:[
           {
             model:models.cliente,
-            attributes: ['id','nombre_cliente','nombre_encargado'],
+            attributes: ['id','nombre_cliente','nombre_encargado','estado'],
             
           }
         ]
