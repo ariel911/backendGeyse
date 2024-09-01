@@ -48,6 +48,39 @@ module.exports = {
         }
     }
     ,
+    loginCliente: async (req, res, next) => {
+        try {
+            // 1. Verifico que el cliente exista solo comparando con usuario_acceso
+            const cliente = await models.cliente.findOne({
+                where: {
+                    usuario_acceso: req.body.usuario_acceso
+                }
+            });
+
+            // 2. Comparo la contraseña ingresada con la contraseña de la base de datos (sin encriptar)
+            const contraseniaCoincide = cliente && cliente.clave === req.body.clave;
+
+            // 3. Verifico que el cliente esté activo
+            if (!cliente || !contraseniaCoincide || cliente.estado !== 1) {
+                return res.status(401).json({
+                    success: false,
+                    error: 'usuario o contraseña incorrecta'
+                });
+            }
+
+            // 4. Si todo está bien, devuelvo el token
+            res.json({
+                success: true,
+                data: {
+                    token: signJWT(cliente), // Crear el token con los datos del cliente
+                    cliente: cliente
+                }
+            });
+        } catch (err) {
+            return next(err);
+        }
+    }
+    ,
     acces: async (req, res, next) => {
         try {
             // 1. Verifico que el usuario exista solo comparando con el email

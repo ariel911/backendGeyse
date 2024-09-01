@@ -7,6 +7,7 @@ const authScheme = require('../middlewares/schemas/auth.scheme') */
 //
 
 router.post('/login',authController.login)
+router.post('/loginCliente',authController.loginCliente)
 //router.post('/acces',authController.acces)
 //router.post('/registrarse', authController.registrarse)
 
