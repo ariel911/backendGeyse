@@ -1,56 +1,64 @@
-const jwt = require('jsonwebtoken')
-//const errors = require('../const/errors')
-const models = require('../database/models/index')
-const moment = require('moment')
-const globalConstants = require('../const/globalConstants')
+const jwt = require('jsonwebtoken');
+const models = require('../database/models/index');
+const moment = require('moment');
+const globalConstants = require('../const/globalConstants');
 
 module.exports = async function (req, res, next) {
 
     if (req.header('Authorization') && req.header('Authorization').split(' ').length > 1) {
         try {
+            // Verifico el token y lo decodifico
+            let dataToken = jwt.verify(req.header('Authorization').split(' ')[1], globalConstants.JWT_SECRET);
 
-            // Verifico el token y lo decodifico con la clave secreta para obtener los datos del usuario que lo creó y los guardo en la variable data 
-            let dataToken = jwt.verify(req.header('Authorization').split(' ')[1], globalConstants.JWT_SECRET)
-
-            if (dataToken.exp <= moment().unix()){
+            if (dataToken.exp <= moment().unix()) {
                 return res.status(500).json({
                     success: false,
-                    error: 'El token expiro'
-                  });
+                    error: 'El token expiró'
+                });
             }
-                 // Si el token expiró, devuelvo error
 
-            res.locals.token = dataToken 
+            res.locals.token = dataToken;
 
-            const usuario = await models.usuario.findOne({
-                where: {
-                    id: dataToken.id
-                }
-            })
-            if (!usuario){
+            let usuario;
+            if (dataToken.tipo === 'usuario') {
+                // Buscar al usuario por ID
+                usuario = await models.usuario.findOne({
+                    where: {
+                        id: dataToken.id
+                    }
+                });
+            } else if (dataToken.tipo === 'cliente') {
+                // Buscar al cliente por ID
+                usuario = await models.cliente.findOne({
+                    where: {
+                        id: dataToken.id
+                    }
+                });
+            }
+
+            if (!usuario) {
                 return res.status(500).json({
                     success: false,
-                    error: 'usuario no autorizado'
-                  });
+                    error: 'Usuario o cliente no autorizado'
+                });
             }
 
-            res.locals.usuario = usuario //me puedo guardar el usuario en el locals para usarlo en las rutas que necesiten el usuario
+            res.locals.usuario = usuario; // Guardar el usuario/cliente en locals para usar en rutas
 
-            next() // Si todo está bien, paso al siguiente middleware o controlador
+            next(); // Si todo está bien, pasar al siguiente middleware o controlador
 
         } catch (err) {
             return res.status(500).json({
                 success: false,
-                error: 'Session Expirada'
-              });
+                error: 'Sesión expirada'
+            });
         }
 
     } else {
         return res.status(500).json({
             success: false,
-            error: 'usuario no autorizado'
-          });
+            error: 'Usuario o cliente no autorizado'
+        });
     }
 
-
-}
+};
