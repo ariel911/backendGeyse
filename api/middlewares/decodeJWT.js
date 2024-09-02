@@ -18,7 +18,7 @@ module.exports = async function (req, res, next) {
             }
 
             res.locals.token = dataToken;
-
+           
             let usuario;
             if (dataToken.tipo === 'usuario') {
                 // Buscar al usuario por ID
@@ -57,7 +57,7 @@ module.exports = async function (req, res, next) {
     } else {
         return res.status(500).json({
             success: false,
-            error: 'Usuario o cliente no autorizado'
+            error: 'Usuario o cliente no autorizados'
         });
     }
 

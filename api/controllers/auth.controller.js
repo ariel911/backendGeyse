@@ -39,7 +39,7 @@ module.exports = {
             res.json({
                 success: true,
                 data: {
-                    token: signJWT(user), // Creo el token con los datos del usuario
+                    token: signJWT(user,"usuario"), // Creo el token con los datos del usuario
                     usuario: user
                 }
             });
@@ -74,7 +74,7 @@ module.exports = {
             res.json({
                 success: true,
                 data: {
-                    token: signJWT(cliente), // Crear el token con los datos del cliente
+                    token: signJWT(cliente,"cliente"), // Crear el token con los datos del cliente
                     cliente: cliente
                 }
             });
