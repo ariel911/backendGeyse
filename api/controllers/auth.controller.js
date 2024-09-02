@@ -56,10 +56,12 @@ module.exports = {
                     usuario_acceso: req.body.usuario_acceso
                 }
             });
+            var contraseniaCoincide = false;
+            if (cliente) {
 
-            // 2. Comparo la contraseña ingresada con la contraseña de la base de datos (sin encriptar)
-            const contraseniaCoincide = cliente && cliente.clave === req.body.clave;
-
+                // 2. Comparo la contraseña ingresada con la contraseña de la base de datos (sin encriptar)
+                contraseniaCoincide = cliente && cliente.clave === req.body.clave;
+            }
             // 3. Verifico que el cliente esté activo
             if (!cliente || !contraseniaCoincide || cliente.estado !== 1) {
                 return res.status(401).json({
