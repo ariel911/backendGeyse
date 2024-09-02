@@ -24,7 +24,7 @@ const rutas_init = () => { // aca se ponen todas las rutas que existen
   const router = Router() // crear una instancia de express.Router()
  
   router.use("/usuarios",decodeJWT, usuarioRoutes) // para acceder a las rutas de usuarios de la api siempre deberá empezar con /usuarios
-  router.use("/cliente", clienteRoutes) 
+  router.use("/cliente", decodeJWT,clienteRoutes) 
   router.use("/menu", decodeJWT,menuRoutes) 
   router.use("/estado",decodeJWT, estadoRoutes) 
   router.use("/trabajo",decodeJWT, trabajoRoutes) 
