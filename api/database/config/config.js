@@ -9,7 +9,7 @@ module.exports = {
     "host": globalConstants.DB_HOST,
     "database": globalConstants.DB_NAME,
 
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
   
 
