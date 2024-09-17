@@ -3,14 +3,21 @@ const globalConstants = require('../../const/globalConstants')
 
 module.exports = {
   development: {
-    username: globalConstants.DB_USERNAME,
-    password: globalConstants.DB_PASSWORD,
-    database: globalConstants.DB_NAME,
-    host: globalConstants.DB_HOST,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: "postgres"
+  },
+  production: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
     dialect: "postgres",
     dialectOptions: {
       ssl: {
-        require: true, // Para servidores en la nube que requieren SSL
+        require: true,
         rejectUnauthorized: false
       }
     }
