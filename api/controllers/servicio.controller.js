@@ -7,29 +7,32 @@ module.exports = {
     try {
       const servicio = await models.servicio.findAll({
         model: models.servicio,
-        attributes: ['id', 'observaciones', 'estado','fecha_servicio','proximo_ph','proximo_mantenimiento'],
-        include:[
+        attributes: ['id', 'observaciones', 'estado', 'fecha_servicio', 'proximo_ph', 'proximo_mantenimiento'],
+        include: [
           {
-            model:models.servicio_trabajo,
-            attributes: ['trabajoId','servicioId'],
-            include:[{
-              model:models.trabajo,
-              attributes: ['id','nombre_trabajo','estado'],
+            model: models.servicio_trabajo,
+            attributes: ['trabajoId', 'servicioId'],
+            include: [{
+              model: models.trabajo,
+              attributes: ['id', 'nombre_trabajo', 'estado'],
             }]
           },
           {
-            model:models.usuario,
-            attributes: ['id','nombre_usuario','apellido','estado','correo'],
+            model: models.usuario,
+            attributes: ['id', 'nombre_usuario', 'apellido', 'estado', 'correo'],
           },
           {
-            model:models.extintor,
-            attributes: ['id','marca','ubicacion','capacidad','fecha_registro','estado','codigo_extintor','codigo_empresa','observaciones'],
-            include:[{
-              model:models.sucursal,
-              attributes: ['id','nombre_sucursal','nombre_encargado','ubicacion','codigo','fecha_registro','estado'],
-              include:[{
-                model:models.cliente,
-                attributes: ['id','nombre_cliente','nombre_encargado','codigo','fecha_registro','estado'],
+            model: models.extintor,
+            attributes: ['id', 'marca', 'ubicacion', 'capacidad', 'fecha_registro', 'estado', 'codigo_extintor', 'codigo_empresa', 'observaciones'],
+            include: [{
+              model: models.tipo,
+              attributes: ['nombre_tipo', 'estado'],
+            }, {
+              model: models.sucursal,
+              attributes: ['id', 'nombre_sucursal', 'nombre_encargado', 'ubicacion', 'codigo', 'fecha_registro', 'estado'],
+              include: [{
+                model: models.cliente,
+                attributes: ['id', 'nombre_cliente', 'nombre_encargado', 'codigo', 'fecha_registro', 'estado'],
               }]
             }]
           }
@@ -54,12 +57,12 @@ module.exports = {
   crear: async (req, res) => {
     try {
       const servicio = await models.servicio.create(req.body);
-    
+
       // Crear las relaciones muchos a muchos con los autores
-      
+
       if (req.body.trabajos && Array.isArray(req.body.trabajos)) {
         for (const trabajoId of req.body.trabajos) {
-          
+
           await models.servicio_trabajo.create({
             servicioId: servicio.id,
             trabajoId: trabajoId
@@ -112,29 +115,29 @@ module.exports = {
     try {
       const id = req.params.id; // Suponiendo que el ID del servicio a actualizar se pasa en los parámetros de la solicitud
       const { trabajos, ...datosActualizados } = req.body; // Suponiendo que 'menus' es una propiedad que contiene la lista de menús asociados al servicio
-  
+
       // Actualizar el servicio
       const [actualizados] = await models.servicio.update(datosActualizados, {
         where: { id }
       });
-  
+
       // Verificar si se ha actualizado algún servicio
-      
+
       if (actualizados === 0 && !trabajos) {
         return res.status(404).json({
           success: false,
           error: 'La servicio especificada no existe'
         });
       }
-  
+
       // Eliminar todas las relaciones existentes entre el servicio y los menús
-      if(!!trabajos){
+      if (!!trabajos) {
         await models.servicio_trabajo.destroy({
           where: { servicioId: id }
         });
       }
-      
-  
+
+
       // Crear las nuevas relaciones muchos a muchos con los menús actualizados
       if (trabajos && Array.isArray(trabajos)) {
         for (const trabajoId of trabajos) {
@@ -144,10 +147,10 @@ module.exports = {
           });
         }
       }
-  
+
       // Obtener el servicio actualizado
       const servicioActualizado = await models.servicio.findByPk(id);
-  
+
       // Responder con el resultado
       res.status(200).json({
         success: true,
@@ -161,7 +164,7 @@ module.exports = {
       });
     }
   },
-  
+
   darBaja: async (req, res) => {
     try {
       const servicio = await models.servicio.findByPk(req.params.id);

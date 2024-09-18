@@ -7,29 +7,32 @@ module.exports = {
     try {
       const inspeccion = await models.inspeccion.findAll({
         model: models.inspeccion,
-        attributes: ['id', 'observaciones', 'estado','fecha_inspeccion'],
-        include:[
+        attributes: ['id', 'observaciones', 'estado', 'fecha_inspeccion'],
+        include: [
           {
-            model:models.inspeccion_estado,
-            attributes: ['estadoId','inspeccionId'],
-            include:[{
-              model:models.estado,
-              attributes: ['id','nombre_estado','estado'],
+            model: models.inspeccion_estado,
+            attributes: ['estadoId', 'inspeccionId'],
+            include: [{
+              model: models.estado,
+              attributes: ['id', 'nombre_estado', 'estado'],
             }]
           },
           {
-            model:models.usuario,
-            attributes: ['id','nombre_usuario','apellido','estado','correo'],
+            model: models.usuario,
+            attributes: ['id', 'nombre_usuario', 'apellido', 'estado', 'correo'],
           },
           {
-            model:models.extintor,
-            attributes: ['id','marca','ubicacion','capacidad','fecha_registro','estado','codigo_extintor','codigo_empresa','observaciones'],
-            include:[{
-              model:models.sucursal,
-              attributes: ['id','nombre_sucursal','nombre_encargado','ubicacion','codigo','fecha_registro','estado'],
-              include:[{
-                model:models.cliente,
-                attributes: ['id','nombre_cliente','nombre_encargado','codigo','fecha_registro','estado'],
+            model: models.extintor,
+            attributes: ['id', 'marca', 'ubicacion', 'capacidad', 'fecha_registro', 'estado', 'codigo_extintor', 'codigo_empresa', 'observaciones'],
+            include: [{
+              model: models.tipo,
+              attributes: ['nombre_tipo', 'estado'],
+            }, {
+              model: models.sucursal,
+              attributes: ['id', 'nombre_sucursal', 'nombre_encargado', 'ubicacion', 'codigo', 'fecha_registro', 'estado'],
+              include: [{
+                model: models.cliente,
+                attributes: ['id', 'nombre_cliente', 'nombre_encargado', 'codigo', 'fecha_registro', 'estado'],
               }]
             }]
           }
@@ -54,12 +57,12 @@ module.exports = {
   crear: async (req, res) => {
     try {
       const inspeccion = await models.inspeccion.create(req.body);
-    
+
       // Crear las relaciones muchos a muchos con los autores
-      
+
       if (req.body.estados && Array.isArray(req.body.estados)) {
         for (const estadoId of req.body.estados) {
-          
+
           await models.inspeccion_estado.create({
             inspeccionId: inspeccion.id,
             estadoId: estadoId
@@ -112,29 +115,29 @@ module.exports = {
     try {
       const id = req.params.id; // Suponiendo que el ID del inspecion a actualizar se pasa en los parámetros de la solicitud
       const { estados, ...datosActualizados } = req.body; // Suponiendo que 'menus' es una propiedad que contiene la lista de menús asociados al inspecion
-  
+
       // Actualizar el inspecion
       const [actualizados] = await models.inspeccion.update(datosActualizados, {
         where: { id }
       });
-  
+
       // Verificar si se ha actualizado algún inspecion
-      
+
       if (actualizados === 0 && !estados) {
         return res.status(404).json({
           success: false,
           error: 'La inspeccion especificada no existe'
         });
       }
-  
+
       // Eliminar todas las relaciones existentes entre el inspecion y los menús
-      if(!!estados){
+      if (!!estados) {
         await models.inspeccion_estado.destroy({
           where: { inspeccionId: id }
         });
       }
-      
-  
+
+
       // Crear las nuevas relaciones muchos a muchos con los menús actualizados
       if (estados && Array.isArray(estados)) {
         for (const estadoId of estados) {
@@ -144,10 +147,10 @@ module.exports = {
           });
         }
       }
-  
+
       // Obtener el inspecion actualizado
       const inspeccionActualizado = await models.inspeccion.findByPk(id);
-  
+
       // Responder con el resultado
       res.status(200).json({
         success: true,
@@ -161,7 +164,7 @@ module.exports = {
       });
     }
   },
-  
+
   darBaja: async (req, res) => {
     try {
       const inspeccion = await models.inspeccion.findByPk(req.params.id);
