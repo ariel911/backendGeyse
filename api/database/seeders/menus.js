@@ -61,7 +61,14 @@ module.exports = {
           nombre_menu: 'Extintores',
           estado: 1, // Activo
         }
-      })
+      }),
+      models.menu.findOrCreate({
+        where: { id: 9 },
+        defaults: {
+          nombre_menu: 'Reportes',
+          estado: 1, // Activo
+        }
+      }),
     ]);
   },
 };

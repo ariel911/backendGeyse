@@ -74,7 +74,7 @@ module.exports = {
   // 
   update: async (req, res) => {
     const userId = req.params.id; // Suponiendo que el ID del usuario a actualizar se pasa como parte de la URL.
-    const { nombre_usuario,apellido,fecha_registro, correo, rolId } = req.body;
+    const { nombre_usuario,apellido, correo, rolId } = req.body;
     
 
     try {
@@ -94,7 +94,7 @@ module.exports = {
       usuario.nombre_usuario = nombre_usuario;
       usuario.correo = correo;
       usuario.apellido = apellido;
-      usuario.fecha_registro = fecha_registro
+     
       
       usuario.rolId=rolId;
 
