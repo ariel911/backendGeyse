@@ -76,7 +76,7 @@ module.exports = {
   
   update: async (req, res) => {
     const extintorId = req.params.id;
-    const { marca, ubicacion, capacidad, fecha_registro, estado, codigo_extintor, codigo_empresa, observaciones, tipoId, sucursalId, usuarioId } = req.body;
+    const { marca, ubicacion, capacidad, estado, codigo_extintor, codigo_empresa, observaciones, tipoId, sucursalId, usuarioId } = req.body;
 
     try {
       const extintor = await models.extintor.findByPk(extintorId);
@@ -93,7 +93,6 @@ module.exports = {
       extintor.marca = marca;
       extintor.ubicacion = ubicacion;
       extintor.capacidad = capacidad;
-      extintor.fecha_registro = fecha_registro;
       extintor.estado = estado;
       extintor.codigo_extintor = codigo_extintor;
       extintor.codigo_empresa = codigo_empresa;

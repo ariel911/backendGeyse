@@ -6,7 +6,7 @@ const clienteController = require('../controllers/cliente.controller') // import
 
 router.get('/', clienteController.listar)
 router.post('/', clienteController.crear)
-router.put('/:id', clienteController.darBaja)
+router.put('/:id', clienteController.actualizar)
 router.put('/baja/:id', clienteController.darBaja)
 
 

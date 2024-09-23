@@ -63,7 +63,7 @@ module.exports = {
     // 
     update: async (req, res) => {
         const sucursalId = req.params.id; // Suponiendo que el ID del usuario a actualizar se pasa como parte de la URL.
-        const { nombre_sucursal,nombre_encargado,ubicacion,fecha_registro, codigo, clienteId } = req.body;
+        const { nombre_sucursal,nombre_encargado,ubicacion, codigo, clienteId } = req.body;
         
     
         try {
@@ -84,10 +84,7 @@ module.exports = {
           sucursal.nombre_encargado = nombre_encargado;
           sucursal.codigo = codigo;
           sucursal.ubicacion = ubicacion;
-          sucursal.fecha_registro = fecha_registro
           sucursal.clienteId=clienteId;
-    
-    
           // Guarda los cambios en la base de datos
           await sucursal.save();
     
