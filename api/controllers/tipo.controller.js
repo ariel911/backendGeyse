@@ -46,8 +46,42 @@ module.exports = {
       });
     }
   },
+  actualizar: async (req, res) => {
+    try {
+      const { id } = req.params; // Obtener el ID del registro a actualizar desde los parámetros de la URL
+      const { nombre_tipo, estado } = req.body; // Datos que se desean actualizar
 
-  
+      // Buscar el registro por ID
+      const tipo = await models.tipo.findByPk(id);
+
+      // Verificar si el registro existe
+      if (!tipo) {
+        return res.status(404).json({
+          success: false,
+          error: 'El tipo no fue encontrado'
+        });
+      }
+
+      // Actualizar el registro con los nuevos datos
+      await tipo.update({
+        nombre_tipo,
+        estado,
+      });
+
+      // Respuesta exitosa con los datos actualizados
+      res.status(200).json({
+        success: true,
+        data: tipo
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        error: 'Ha ocurrido un error al actualizar el tipo'
+      });
+    }
+  }
+  ,
   eliminar: async (req, res) => {
     try {
       const tipo = await models.tipo.findByPk(req.params.id);

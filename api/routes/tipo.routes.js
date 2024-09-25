@@ -8,6 +8,7 @@ router.get('/', tipoController.listar)
 router.post('/', tipoController.crear)
 router.put('/:id', tipoController.darBaja)
 router.put('/baja/:id', tipoController.darBaja)
+router.put('/:id', tipoController.actualizar)
 
 
 module.exports = router;
