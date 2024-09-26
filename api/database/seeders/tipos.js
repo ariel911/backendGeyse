@@ -51,7 +51,7 @@ module.exports = {
       models.tipo.findOrCreate({
         where: { id: 7 },
         defaults: {
-          nombre_tipo: 'PQS',
+          nombre_tipo: 'Otros',
           estado: 1, // Activo
         }
       })
